@@ -1,36 +1,22 @@
+/// Represents an opcode, which tells our interpreter what to do with the following operands
 #[derive(Debug, PartialEq)]
 pub enum Opcode {
   HLT,
   IGL
 }
 
+/// Represents a combination of an opcode and operands for the VM to execute
 #[derive(Debug, PartialEq)]
 pub struct Instruction {
   opcode: Opcode
 }
 
 impl Instruction {
-  pub fn new(opcode: Opcode) -> Instruction {
-    Instruction {
-      opcode: opcode
-    }
-  }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_create_hlt() {
-        let opcode = Opcode::HLT;
-        assert_eq!(opcode, Opcode::HLT);
-    }
-
-    #[test]
-    fn test_create_instruction() {
-      let instruction = Instruction::new(Opcode::HLT);
-      assert_eq!(instruction.opcode, Opcode::HLT);
+    /// Creates and returns a new Instruction
+    pub fn new(opcode: Opcode) -> Instruction {
+        Instruction {
+            opcode: opcode
+        }
     }
 }
 
@@ -48,26 +34,14 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_create_vm() {
-        let test_vm = VM::new();
-        assert_eq!(test_vm.registers[0], 0)
+    fn test_create_hlt() {
+        let opcode = Opcode::HLT;
+        assert_eq!(opcode, Opcode::HLT);
     }
 
     #[test]
-    fn test_opcode_hlt() {
-      let mut test_vm = VM::new();
-      let test_bytes = vec![0,0,0,0];
-      test_vm.program = test_bytes;
-      test_vm.run();
-      assert_eq!(test_vm.pc, 1);
-    }
-
-    #[test]
-    fn test_opcode_igl() {
-      let mut test_vm = VM::new();
-      let test_bytes = vec![200,0,0,0];
-      test_vm.program = test_bytes;
-      test_vm.run();
-      assert_eq!(test_vm.pc, 1);
+    fn test_create_instruction() {
+      let instruction = Instruction::new(Opcode::HLT);
+      assert_eq!(instruction.opcode, Opcode::HLT);
     }
 }
